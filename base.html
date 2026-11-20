@@ -20,10 +20,6 @@
     <!-- logout is POST only, turn every /logout link into a form submit -->
     <script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/logout"]');if(!a)return;e.preventDefault();var f=document.createElement('form');f.method='post';f.action='/logout';var i=document.createElement('input');i.type='hidden';i.name='csrf_token';i.value=csrf_token;f.appendChild(i);document.body.appendChild(f);f.submit();});</script>
 
-    {{if eq .MenuStyle "modern"}}
-    <!-- Saturn uses the classic grouped menu: set the menu_style cookie once and reload so the panel renders it -->
-    <script>(function(){try{if(sessionStorage.getItem('sat_menu_reload'))return;sessionStorage.setItem('sat_menu_reload','1');}catch(e){return;}document.cookie='menu_style=classic; path=/; max-age=31536000; SameSite=Lax';location.reload();})();</script>
-    {{end}}
     <!-- DARK MODE -->
     <script>/* Saturn is light only */document.documentElement.classList.remove('dark');</script>
 

@@ -227,6 +227,10 @@
         {{if .IPAddress}}<tr><td><label>{{.T.Get "Shared IP Address"}}</label><span class="sat-val">{{.IPAddress}}</span></td></tr>{{end}}
         <tr><td><label>{{.T.Get "Last Login IP Address"}}</label><span class="sat-val">{{if .LastIP}}{{if .UserAllowed.login_history}}<a href="/account/login-history" title="{{.LastLoginTime}}">{{.LastIP}}</a>{{else}}{{.LastIP}}{{end}}{{else}}/{{end}}</span></td></tr>
         {{if and .UserAllowed.domains .NS1 .NS2}}<tr><td><label>{{.T.Get "Nameservers"}}</label><span class="sat-val">{{.NS1}}<br>{{.NS2}}{{if .NS3}}<br>{{.NS3}}{{end}}{{if .NS4}}<br>{{.NS4}}{{end}}</span></td></tr>{{end}}
+        {{if and .ThemeSwitch (gt (len .ThemeOptions) 1)}}<tr><td><label for="user-theme-select">{{.T.Get "Theme"}}</label>
+          <form method="post" action="/account/theme" id="user-theme"><input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+            <select id="user-theme-select" name="theme" class="sat-select" onchange="this.form.submit()">{{range .ThemeOptions}}<option value="{{.Folder}}"{{if eq .Folder $.ThemeFolder}} selected{{end}}>{{.Name}}</option>{{end}}</select>
+          </form></td></tr>{{end}}
         {{if .UserAllowed.info}}<tr><td class="sat-info-link"><a href="/server/info">{{.T.Get "Server Information"}}<i class="ri-arrow-right-s-line" aria-hidden="true"></i></a></td></tr>{{end}}
       </tbody></table>
     </section>

@@ -846,3 +846,7 @@ main table[data-no-sort] thead th { text-align: left; border-top: 0 !important; 
 .sat-trademarks p { margin: 0 0 10px; }
 .sat-trademarks ul { margin: 0 0 10px; padding-left: 40px; list-style: disc; }
 .sat-trademarks .sat-muted { color: #999; }
+
+/* theme select in General Information, like the reference's chosen select */
+.sat-select { width: 100%; height: 34px; padding: 0 28px 0 10px; font-size: 14px; color: var(--sat-text); background: #fff; border: 1px solid #e4e9f2; border-radius: 4px; appearance: auto; }
+.sat-select:focus { border-color: #5cb3fd; outline: 0; }

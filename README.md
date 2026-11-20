@@ -22,7 +22,7 @@ Or pick **saturn** in **OpenAdmin > Settings > OpenPanel > Theme**.
 - `static/fonts/phosphor/`: Phosphor Light (MIT, see `LICENSE` there), the thinner two-tone tool icons on the dashboard.
 - `base.html`: loads the stylesheet and Bootstrap Icons, 240px sidebar, no tabs bar on the dashboard.
 - `dashboard/dashboard.html`: no Overview, only Tools: sections in one column, General Information and Statistics on the right.
-- Always the classic grouped menu (sets the `menu_style=classic` cookie once), no tabs bar under the header, no breadcrumbs, light mode only (no theme switcher, ignores the device's dark setting).
+- Always the classic grouped menu (`Menu Style: classic` in readme.txt, the panel uses it while Saturn is active), no tabs bar under the header, no breadcrumbs, light mode only (no theme switcher, ignores the device's dark setting).
 - `user/_login.html`, `user/login.html`, `static/css/saturn-login.css`: the login page (centred logo, icon fields, blue button, language row, copyright).
 - `system/server_info.html`: server, hosting package and panel information as three tables on one page.
 - `/dashboard#trademarks`: trademarks notice, linked from the page footer.
