@@ -1,0 +1,87 @@
+/*
+ * Saturn login page: light grey page, centred logo, 285px form with icon fields,
+ * a blue full width button, reset link, a row of languages and a small footer,
+ * like the reference panel's login.
+ */
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/open-sans/open-sans-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/open-sans/open-sans-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/open-sans/open-sans-latin-700-normal.woff2') format('woff2')}
+
+body.sat-login {
+    margin: 0; min-height: 100svh;
+    background: #f0eff0 !important;
+    color: #333;
+    font-family: 'Open Sans', helvetica, arial, sans-serif;
+    font-size: 13px;
+}
+.sat-login-wrap { display: flex; flex-direction: column; align-items: center; min-height: 100svh; padding: 125px 16px 24px; box-sizing: border-box; }
+
+/* brand, 50px tall like the reference logo */
+.sat-login-brand { margin-bottom: 40px; text-align: center; }
+.sat-login-brand img { height: 50px; width: auto; }
+.sat-login-name { display: inline-flex; align-items: center; gap: 10px; font-size: 42px; line-height: 50px; font-weight: 700; letter-spacing: -.02em; color: #202654; /* same as the menu brand */ text-decoration: none; }
+.sat-login-name svg { width: 46px; height: 46px; }
+
+/* the form: no card, 285px wide */
+.sat-login-box, .sat-login-wrap > div.rounded-md { width: 285px; max-width: 100%; background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; }
+.sat-login-wrap form { margin-top: 0 !important; }
+.sat-login-wrap form > * + * { margin-top: 0 !important; }
+.sat-login-wrap form > div { margin-bottom: 30px; }
+.sat-login-wrap label { display: block; margin: 0 0 8px 4px !important; font-size: 14px !important; line-height: 19px; font-weight: 600 !important; color: #293a4a !important; }
+
+.sat-login-field { position: relative; }
+.sat-login-field > i { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 17px; color: #8c9aa6; pointer-events: none; z-index: 1; }
+.sat-login-wrap input[type="text"], .sat-login-wrap input[type="password"], .sat-login-wrap input#twofa_code, .sat-login-wrap input[type="email"] {
+    height: 36px; padding: 0 12px 0 42px !important;
+    font-size: 13px !important; color: #000 !important;
+    background: #fff !important;
+    border: 2px solid #d3d3d3 !important; border-radius: 4px !important;
+    box-shadow: none !important; outline: 0;
+}
+.sat-login-wrap input#twofa_code, .sat-login-wrap input[type="email"] { padding-left: 12px !important; }
+.sat-login-wrap input::placeholder { color: #666 !important; }
+.sat-login-wrap input:focus { border-color: #179bd7 !important; --tw-ring-color: transparent !important; }
+.sat-login-wrap [data-toggle-password] { right: 4px !important; color: #8c9aa6 !important; }
+
+/* blue log in button */
+.sat-login-wrap button[type="submit"] {
+    width: 100%; height: 34px; padding: 7px 6px !important;
+    font-size: 13px !important; font-weight: 600 !important; color: #fff !important;
+    background: #179bd7 !important; border: 1px solid #095779 !important; border-radius: 4px !important;
+    box-shadow: none !important; cursor: pointer;
+}
+.sat-login-wrap button[type="submit"]:hover { background: #1386bb !important; }
+
+.sat-login-reset { margin: 26px 0 0; text-align: center; }
+.sat-login-reset a { font-size: 12px; font-weight: 700; color: #293a4a; text-decoration: none; }
+.sat-login-reset a:hover { text-decoration: underline; }
+
+/* passkey: grey secondary button under an "or" line */
+.sat-login-wrap #passkey-login-btn { height: 34px; font-size: 13px !important; font-weight: 600 !important; color: #293a4a !important; background: #fff !important; border: 1px solid #d3d3d3 !important; border-radius: 4px !important; box-shadow: none !important; }
+.sat-login-wrap #passkey-login-btn:hover { background: #f7f7f7 !important; }
+
+/* languages in a row */
+.sat-login-langs { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 38px; max-width: 860px; margin: 56px auto 0; }
+.sat-lang, .sat-lang-more { font-size: 12px; line-height: 18px; font-weight: 600; color: #293a4a; text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; }
+.sat-lang:hover, .sat-lang-more:hover { text-decoration: underline; }
+.sat-lang.on { text-decoration: underline; }
+.sat-lang-more { font-size: 16px; font-weight: 700; line-height: 14px; }
+.sat-lang-list { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); z-index: 50; width: 260px; background: #fff; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,.12); padding: 4px; }
+.sat-lang-list.hidden { display: none; }
+.sat-lang-search { padding: 4px 4px 8px; border-bottom: 1px solid #eee; }
+.sat-lang-search input { width: 100%; height: 30px; padding: 0 8px; font-size: 13px; border: 1px solid #ccc; border-radius: 3px; box-sizing: border-box; }
+.sat-lang-list ul { list-style: none; margin: 0; padding: 4px 0; max-height: 260px; overflow-y: auto; }
+.sat-lang-list li { display: flex; align-items: center; gap: 8px; padding: 6px 8px; font-size: 13px; color: #293a4a; cursor: pointer; border-radius: 3px; }
+.sat-lang-list li:hover, .sat-lang-list li.on { background: #f1f4f7; }
+.sat-lang-list li img { width: 20px; height: 13px; }
+.sat-lang-list li small { color: #888; }
+
+/* copyright under the languages: small mark, then tiny serif lines like the reference */
+.sat-login-foot { margin-top: 90px; text-align: center; }
+.sat-login-foot svg { display: block; width: 22px; height: 22px; margin: 0 auto 6px; color: #202654; }
+.sat-login-foot p { margin: 0; font-family: "Times New Roman", Times, serif; font-size: 9.33px; line-height: 10.5px; color: #3f4143; }
+.sat-login-foot a { color: #3f4143; text-decoration: none; }
+.sat-login-foot a:hover { text-decoration: underline; }
+
+/* error and warning boxes under the form */
+.sat-login-wrap [role="alert"] { margin-top: 20px; font-size: 13px; border-radius: 4px; }

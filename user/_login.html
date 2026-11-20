@@ -1,0 +1,160 @@
+{{define "layout"}}<!DOCTYPE html>
+<html lang="en">
+  <!-- START templates/user/_login.html -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Stefan Pejcic">
+    <meta name="robots" content="noindex">
+    <link rel="shortcut icon" type="image/x-icon" href="{{if .Favicon}}{{.Favicon}}{{else}}{{static "images/favicon.svg"}}{{end}}">
+    <title>{{.T.Get .Title}} - {{if .BrandName}}{{.BrandName}}{{else}}OpenPanel{{end}}</title>
+    <link rel="stylesheet" href="{{static "vendor/remixicon/remixicon.css"}}">
+    <link rel="stylesheet" href="{{static "dist/output.css"}}">
+
+    <!-- dark mode follows the saved theme, or the device setting if none is saved, same as base.html -->
+    <script>/* Saturn is light only */document.documentElement.classList.remove('dark');</script>
+
+    <!-- Custom code in header -->
+    {{customHeader}}
+
+    <!-- Custom CSS code -->
+    <link rel="stylesheet" href="{{static "css/custom.css"}}">
+    <!-- Saturn login styles -->
+    <link rel="stylesheet" href="{{static "css/saturn-login.css"}}">
+  </head>
+
+  <body class="sat-login">
+<main class="sat-login-wrap">
+
+<!-- brand: the admin's logo or name when set, the OpenPanel mark otherwise -->
+<div class="sat-login-brand">
+{{if .Logo}}
+<a href="."><img src="{{.Logo}}" alt="{{if .BrandName}}{{.BrandName}}{{else}}OpenPanel{{end}}"></a>
+{{else if .BrandName}}
+<a href="." class="sat-login-name">{{.BrandName}}</a>
+{{else}}
+<a href="https://openpanel.com?utm=2083_login_page" target="_blank" class="sat-login-name"><svg aria-hidden="true" viewBox="0 0 213 215"><g transform="translate(0,215) scale(0.1,-0.1)" fill="currentColor"><path d="M990 2071 c-39 -13 -141 -66 -248 -129 -53 -32 -176 -103 -272 -158 -206 -117 -276 -177 -306 -264 -17 -50 -19 -88 -19 -460 0 -476 0 -474 94 -568 55 -56 124 -98 604 -369 169 -95 256 -104 384 -37 104 54 532 303 608 353 76 50 126 113 147 184 8 30 12 160 12 447 0 395 -1 406 -22 461 -34 85 -98 138 -317 264 -104 59 -237 136 -295 170 -153 90 -194 107 -275 111 -38 2 -81 0 -95 -5z m205 -561 c66 -38 166 -95 223 -127 l102 -58 0 -262 c0 -262 0 -263 -22 -276 -13 -8 -52 -31 -88 -51 -36 -21 -126 -72 -200 -115 l-135 -78 -3 261 -3 261 -166 95 c-91 52 -190 109 -219 125 -30 17 -52 34 -51 39 3 9 424 256 437 255 3 0 59 -31 125 -69z"/></g></svg>OpenPanel</a>
+{{end}}
+</div>
+
+<!-- START individual login template file -->
+{{template "content" .}}
+<!-- END individual login template file -->
+
+<!-- languages in a row, the rest behind "…" -->
+<input type="hidden" name="csrf_token" value="{{.CSRFToken}}"/>
+{{$current := .T.Locale}}
+<div class="sat-login-langs" id="locale-dropdown"{{if not .Locales}} hidden{{end}}>
+  {{range $i, $l := .Locales}}{{if lt $i 8}}<a href="#" class="sat-lang{{if eq $l.Code $current}} on{{end}}" data-value="{{$l.Code}}" role="option" aria-selected="{{if eq $l.Code $current}}true{{else}}false{{end}}" data-search="{{$l.Native}} {{$l.English}} {{$l.Code}}">{{$l.Native}}</a>{{end}}{{end}}
+  <button type="button" id="locale-btn" class="sat-lang-more" aria-haspopup="listbox" aria-expanded="false" aria-label="{{.T.Get "Change language"}}">…<span id="locale-chevron" hidden></span></button>
+  <div id="locale-list" class="hidden sat-lang-list">
+    <div class="sat-lang-search"><input id="locale-search" type="search" placeholder="{{.T.Get "Search"}}" autocomplete="off" aria-label="{{.T.Get "Search"}}"></div>
+    <ul role="listbox">
+      {{range .Locales}}
+      <li role="option" data-value="{{.Code}}" data-search="{{.Native}} {{.English}} {{.Code}}" aria-selected="{{if eq .Code $current}}true{{else}}false{{end}}" class="{{if eq .Code $current}}on{{end}}">
+        <img src="/static/flags/{{.FlagCode}}.png" alt="" onerror="this.style.display='none'" />
+        <span>{{.Native}}</span>{{if ne .English .Native}}<small>{{.English}}</small>{{end}}
+      </li>
+      {{end}}
+    </ul>
+  </div>
+</div>
+
+<footer class="sat-login-foot">
+  {{if not .BrandName}}<svg aria-hidden="true" viewBox="0 0 213 215"><g transform="translate(0,215) scale(0.1,-0.1)" fill="currentColor"><path d="M990 2071 c-39 -13 -141 -66 -248 -129 -53 -32 -176 -103 -272 -158 -206 -117 -276 -177 -306 -264 -17 -50 -19 -88 -19 -460 0 -476 0 -474 94 -568 55 -56 124 -98 604 -369 169 -95 256 -104 384 -37 104 54 532 303 608 353 76 50 126 113 147 184 8 30 12 160 12 447 0 395 -1 406 -22 461 -34 85 -98 138 -317 264 -104 59 -237 136 -295 170 -153 90 -194 107 -275 111 -38 2 -81 0 -95 -5z m205 -561 c66 -38 166 -95 223 -127 l102 -58 0 -262 c0 -262 0 -263 -22 -276 -13 -8 -52 -31 -88 -51 -36 -21 -126 -72 -200 -115 l-135 -78 -3 261 -3 261 -166 95 c-91 52 -190 109 -219 125 -30 17 -52 34 -51 39 3 9 424 256 437 255 3 0 59 -31 125 -69z"/></g></svg>{{end}}
+  <p>Copyright© <span data-year>2026</span> {{if .BrandName}}{{.BrandName}}{{else}}OpenPanel LLC.{{end}}</p>
+  {{if not .IsEnterprise}}<p><a href="https://openpanel.com?utm=2083_login_page" target="_blank">{{.T.Get "Powered by OpenPanel"}}</a></p>{{end}}
+  <script>document.querySelectorAll('.sat-login-foot [data-year]').forEach(function (e) { e.textContent = new Date().getFullYear(); });</script>
+</footer>
+
+<script>
+(function () {
+  var dropdown = document.getElementById('locale-dropdown');
+  var btn      = document.getElementById('locale-btn');
+  var list     = document.getElementById('locale-list');
+  var search   = document.getElementById('locale-search');
+  var chevron  = document.getElementById('locale-chevron');
+  var items    = dropdown.querySelectorAll('[role="option"]');
+
+  function setOpen(open) {
+    list.classList.toggle('hidden', !open);
+    btn.setAttribute('aria-expanded', String(open));
+    chevron.style.transform = open ? 'rotate(180deg)' : '';
+    if (open) {
+      search.value = '';
+      filter();
+      search.focus();
+    }
+  }
+
+  function filter() {
+    var q = search.value.trim().toLowerCase();
+    list.querySelectorAll('[role="option"]').forEach(function (item) {
+      item.style.display = !q || item.getAttribute('data-search').toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+    });
+  }
+
+  btn.addEventListener('click', function () {
+    setOpen(list.classList.contains('hidden'));
+  });
+  search.addEventListener('input', filter);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (!dropdown.contains(e.target)) setOpen(false);
+  });
+
+  document.querySelectorAll('[data-toggle-password]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var input = document.getElementById(b.getAttribute('data-toggle-password'));
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      b.setAttribute('aria-pressed', String(show));
+      b.setAttribute('aria-label', show ? {{toJSON (.T.Get "Hide password")}} : {{toJSON (.T.Get "Show password")}});
+      b.querySelector('i').className = (show ? 'ri-eye-off-line' : 'ri-eye-line') + ' text-base';
+    });
+  });
+
+  items.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      setOpen(false);
+      if (item.getAttribute('aria-selected') === 'true') return;
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRF-TOKEN': "{{.CSRFToken}}"
+        },
+        body: 'locale=' + encodeURIComponent(item.getAttribute('data-value'))
+      }).then(function (response) {
+        if (response.redirected) {
+          window.location.href = response.url;
+        } else {
+          window.location.reload();
+        }
+      });
+    });
+  });
+})();
+</script>
+
+
+
+</main>
+  </body>
+
+  <!-- Custom code in footer -->
+    {{customFooter}}
+
+    <!-- The Jinja original guards this with {% if url_for(...) %}, which is
+         always truthy (url_for() always returns a URL string regardless of
+         whether the file exists) - so the tag is unconditional there too,
+         not gated on whether custom.js actually has content. -->
+    <script src="{{static "js/custom.js"}}"></script>
+
+  <!-- END templates/user/_login.html -->
+</html>
+{{end}}
