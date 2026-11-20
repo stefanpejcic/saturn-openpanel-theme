@@ -9,7 +9,10 @@ Saturn is a theme for the OpenPanel 2.x user panel with a classic hosting panel 
 ```bash
 git clone https://github.com/stefanpejcic/saturn-openpanel-theme /etc/openpanel/openpanel/templates/saturn
 opencli config update template saturn
+podman restart openpanel
 ```
+
+The restart makes the panel load the theme.
 
 Or pick **saturn** in **OpenAdmin > Settings > OpenPanel > Theme**.
 
