@@ -26,6 +26,6 @@ Or pick **saturn** in **OpenAdmin > Settings > OpenPanel > Theme**.
 - `/dashboard#trademarks`: trademarks notice, linked from the page footer.
 - `partials/_search.html`: the header search is always open, focused on the dashboard, `/` focuses it, and on the dashboard it also filters the tools.
 
-Every other template is the built-in one, so you can delete the files this theme doesn't touch and they will follow panel updates.
+The theme only holds the files it changes, every other page comes from the panel's built-in templates, so those keep following panel updates.
 
 Based on [bootstrap-openpanel-theme](https://github.com/stefanpejcic/bootstrap-openpanel-theme).
