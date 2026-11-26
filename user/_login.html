@@ -29,8 +29,8 @@
 
 <!-- brand: the admin's logo or name when set, the OpenPanel mark otherwise -->
 <div class="sat-login-brand">
-{{if .Logo}}
-<a href="."><img src="{{.Logo}}" alt="{{if .BrandName}}{{.BrandName}}{{else}}OpenPanel{{end}}"></a>
+{{if or .Logo .LogoDark}}
+<a href="."><img src="{{or .Logo .LogoDark}}" alt="{{if .BrandName}}{{.BrandName}}{{else}}OpenPanel{{end}}"></a>
 {{else if .BrandName}}
 <a href="." class="sat-login-name">{{.BrandName}}</a>
 {{else}}
