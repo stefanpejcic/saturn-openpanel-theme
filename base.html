@@ -394,6 +394,8 @@ document.addEventListener('submit', (e) => {
 
 
 <div class="flex min-h-svh w-full">
+    {{- /* bare pages (the fullscreen file editor) get no sidebar, header or footer, like the built-in layout */}}
+    {{if .Bare}}<style>#no_margin_for_iframe{margin-left:0!important}</style>{{else}}
     <div x-show="sidebarOpen"
          :class="{'hidden': !sidebarOpen}"
          @click.away="isMobile && (sidebarOpen = false)"
@@ -607,12 +609,15 @@ document.addEventListener('submit', (e) => {
             </div>
         </div>
     </div>
+    {{end}}
     <div class="w-full">
 
+        {{if not .Bare}}
         {{template "header" .}}
 
         <!-- Saturn: dims the page under an open header menu -->
         <div class="sat-backdrop" aria-hidden="true"></div>
+        {{end}}
 
         <!-- Flowbite toasts 2 -->
         <div id="toast-container" class="fixed sm:bottom-10 sm:right-10 flex flex-col space-y-2 z-50 overflow-y-hidden"></div>
@@ -621,7 +626,7 @@ document.addEventListener('submit', (e) => {
     <main id="no_margin_for_iframe" class="x-cloak bg-white antialiased dark:bg-gray-950 text-gray-800 dark:text-white min-h-[90vh]">
 
 
-    {{template "impersonate" .}}
+    {{if not .Bare}}{{template "impersonate" .}}{{end}}
 
 
 <!-- flash messages -->
@@ -679,6 +684,7 @@ document.addEventListener('submit', (e) => {
     </main>
 
 <!-- Saturn page footer: brand and version on the left, links on the right, like the reference panel -->
+{{if not .Bare}}
 <footer class="sat-footer">
     <div class="sat-footer-brand">
         {{if or .Logo .LogoDark}}<a href="/dashboard"><img src="{{or .Logo .LogoDark}}" alt="{{if .BrandName}}{{.BrandName}}{{else}}OpenPanel{{end}}"></a>
@@ -692,6 +698,7 @@ document.addEventListener('submit', (e) => {
         {{if eq .FoundABugLink "yes"}}<li><a href="https://github.com/stefanpejcic/OpenPanel/issues/new?template=2_user_bug.yaml&affected-versions={{.PanelVersion}}&os=Ubuntu&title=Bug%20in%20OpenPanel%20UI%20on%20{{.RequestPath}}" target="_blank" rel="noopener noreferrer">{{.T.Get "Found a bug?"}}</a></li>{{end}}
     </ul>
 </footer>
+{{end}}
     <script>
     // Saturn: like the reference, the list pages open with their search box focused.
     // Takes the first visible list search field of the page, only when
